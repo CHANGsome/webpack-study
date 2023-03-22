@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   // 1.开发模式（development）：代码不会压缩
   // 2.生产模式（production）：代码会压缩
-  mode: 'development',
+  mode: 'production',
   entry: './src/index.js',
   output: {
     // 打包后文件的名字，还可以是 'main.[hash:8].js'
@@ -53,6 +53,7 @@ module.exports = {
   /**loader 加载器，执行顺序：从下到上，从右到左 */
   module: {
     rules: [
+      /**css loader */
       {
         test: /\.(css|less)$/,
         use: [
@@ -62,6 +63,12 @@ module.exports = {
           'postcss-loader', // 配合autoprefixer&browserlist给css3加前缀【兼容】
           'less-loader', // 将less编译为css
         ],
+      },
+      /**js loader */
+      {
+        test: /\.js$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/,
       },
     ],
   },
