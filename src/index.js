@@ -1,3 +1,7 @@
+/* 项目中需要用到的CSS，我们在入口中基于模块规范导入进来 */
+import './assets/css/reset.min.css';
+import './index.less';
+
 import add from './add';
 import average from './average';
 

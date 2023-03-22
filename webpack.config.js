@@ -45,4 +45,18 @@ module.exports = {
       },
     },
   },
+  /**loader 加载器，执行顺序：从下到上，从右到左 */
+  module: {
+    rules: [
+      {
+        test: /\.(css|less)$/,
+        use: [
+          'style-loader', // 将css以内嵌式导入到页面
+          'css-loader', // 处理特殊语法
+          'postcss-loader', // 配合autoprefixer&browserlist给css3加前缀【兼容】
+          'less-loader', // 将less编译为css
+        ],
+      },
+    ],
+  },
 };
