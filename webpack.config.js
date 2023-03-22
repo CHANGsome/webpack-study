@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
   // 1.开发模式（development）：代码不会压缩
   // 2.生产模式（production）：代码会压缩
@@ -21,6 +23,9 @@ module.exports = {
       minify: true,
     }),
     new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: ' main.[hash:8].css',
+    }),
   ],
   /**启动本地服务器 */
   devServer: {
@@ -51,7 +56,8 @@ module.exports = {
       {
         test: /\.(css|less)$/,
         use: [
-          'style-loader', // 将css以内嵌式导入到页面
+          MiniCssExtractPlugin.loader, // 抽离css代码，以外联式link到html
+          // 'style-loader', // 将css以内嵌式导入到页面
           'css-loader', // 处理特殊语法
           'postcss-loader', // 配合autoprefixer&browserlist给css3加前缀【兼容】
           'less-loader', // 将less编译为css
