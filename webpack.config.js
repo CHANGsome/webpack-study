@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   // 1.开发模式（development）：代码不会压缩
@@ -14,6 +16,11 @@ module.exports = {
     //   + 代码一但被修改，生成的文件名中的哈希值也会变化，有助于强缓存的设置
     filename: 'main.[hash:8].js',
     path: path.resolve(__dirname, './dist'),
+  },
+  /* 优化项 */
+  optimization: {
+    // 设置压缩方式
+    minimizer: [new CssMinimizerWebpackPlugin(), new TerserPlugin()],
   },
   /** 使用插件 */
   plugins: [
